@@ -59,10 +59,17 @@ services:
     restart: "no"
     ports:
       - "8000:8000"
+      - "5678:5678"
     build:
       context: ./backend
     # command: sleep infinity  # Infinite loop to keep container alive doing nothing
     command:
+      - debugpy
+      - --log-to
+      - "/app/logs/"
+      - --listen
+      - "0.0.0.0:5678"
+      - -m
       - fastapi
       - run
       - --reload
